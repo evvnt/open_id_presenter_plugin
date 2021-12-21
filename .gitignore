@@ -1,0 +1,32 @@
+doc
+.yardoc
+tags
+
+# Ignore Bundler stuff
+.bundle
+vendor
+
+# Ignore vim temp files
+*.swp
+
+# Ignore rubymine files
+/.idea/
+
+# Ignore guard temp dir
+/tmp/*
+!/tmp/event_ids_to_have_updated_urls.csv
+# Ignore Redis dump
+*.rdb
+
+# Ignore log files
+/log/*
+
+.byebug_history
+.env
+
+docker-compose.override.yml
+
+build.txt
+
+# Mac .DS_Store files
+**/.DS_Store
