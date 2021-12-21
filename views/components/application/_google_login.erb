@@ -1,7 +1,11 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+     <%= raw File.read(File.expand_path('../../assets/css/google_login.css', __dir__)  ) %>
+</style>
 <div id="g_id_onload"
      data-client_id="<%= comp.google_client_id %>"
      data-login_uri="<%= comp.login_uri %>"
+     data-ux_mode="popup"
      data-auto_prompt="false">
 </div>
 <div class="g_id_signin"
@@ -9,6 +13,7 @@
      data-size="large"
      data-theme="outline"
      data-text="sign_in_with"
+     data-width="400"
      data-shape="rectangular"
-     data-logo_alignment="left">
+     data-logo_alignment="center">
 </div>
