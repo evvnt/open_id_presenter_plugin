@@ -1,4 +1,5 @@
 require_relative 'open_id/components/google_login'
+require_relative 'open_id/components/facebook_login'
 
 module Coprl
   module Presenters
@@ -12,6 +13,10 @@ module Coprl
           def google_login(**attributes, &block)
             self << OpenId::GoogleLogin.new(parent: self, **attributes, &block)
           end
+
+          def facebook_login(**attributes, &block)
+            self << OpenId::FacebookLogin.new(parent: self, **attributes, &block)
+          end
         end
 
         module WebClientComponents
@@ -24,6 +29,15 @@ module Coprl
                                components:,
                                index:)
             render.call :erb, :google_login, views: view_dir_open_id(comp),
+                        locals: {comp: comp,
+                                 components: components, index: index}
+          end
+
+          def render_facebook_login(comp,
+                                  render:,
+                                  components:,
+                                  index:)
+            render.call :erb, :facebook_login, views: view_dir_open_id(comp),
                         locals: {comp: comp,
                                  components: components, index: index}
           end

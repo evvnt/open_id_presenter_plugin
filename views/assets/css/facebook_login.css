@@ -1,0 +1,14 @@
+#facebook-login-btn{
+    font-size: 13px;
+    text-transform: none;
+    background-color: #3B5998;
+    width: 100%;
+    display: inline-flex;
+    margin: 0 auto;
+}
+
+#facebook-login-btn svg{
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
