@@ -4,12 +4,11 @@ module Coprl
       module OpenId
         class GoogleLogin < DSL::Components::Base
 
-          attr_reader :google_client_id, :google_client_secret, :redirect_uri, :login_uri, :o_csrf_token
+          attr_reader :google_client_id, :redirect_uri, :login_uri, :o_csrf_token
 
           def initialize(**attribs_, &block)
             super(type: :google_login, **attribs_, &block)
             @google_client_id = attribs.delete(:google_client_id) { ENV['GOOGLE_OAUTH_CLIENT_ID'] }
-            @google_client_secret = attribs.delete(:google_client_secret) { ENV['GOOGLE_OAUTH_CLIENT_SECRET'] }
             @redirect_uri = attribs.delete(:redirect_uri)
             @o_csrf_token = attribs.delete(:o_csrf_token)
             @login_uri = generate_connect_link
