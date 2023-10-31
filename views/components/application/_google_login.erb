@@ -1,8 +1,8 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 <style>
-     <%= raw File.read(File.expand_path('../../assets/css/google_login.css', __dir__)  ) %>
+  <%= raw File.read(File.expand_path('../../assets/css/google_login.css', __dir__)  ) %>
 </style>
-<a id="google-login-btn" class="v-button v-button--button mdc-button mdc-button--raised" href="#" onclick="googleAuth();return false;">
+<button class="v-button v-button--button mdc-button mdc-button--raised v-openid-button--google" onclick="googleAuth(); return false;">
   <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="v-image v-image--fit-contain v-component">
     <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
       <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"/>
@@ -12,9 +12,9 @@
     </g>
   </svg>
   Sign in with Google
-</a>
+</button>
 <script>
-  function googleAuth(){
+  function googleAuth() {
     window.location.href = "<%= comp.login_uri %>"
   }
 </script>

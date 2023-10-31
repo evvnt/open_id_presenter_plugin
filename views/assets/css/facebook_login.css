@@ -1,4 +1,4 @@
-#facebook-login-btn{
+.v-button.v-openid-button--facebook {
     font-size: 13px;
     text-transform: none;
     background-color: #3B5998;
@@ -7,7 +7,7 @@
     margin: 0 auto;
 }
 
-#facebook-login-btn svg{
+.v-button.v-openid-button--facebook svg {
     width: 24px;
     height: 24px;
     margin-right: 10px;
