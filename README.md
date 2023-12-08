@@ -1,15 +1,20 @@
-# Google Maps Presenter Plugins
+# OpenID COPRL Plugin
 
-A plugin for [COPRL](http://github.com/coprl/coprl) that provides google maps.
+A plugin for [COPRL](https://github.com/coprl/coprl) that provides "sign in with" buttons for authenticating users via OpenID.
 
-The plugin is based on the standard [image component](https://coprl-ruby.herokuapp.com/images) and supports all the same [attributes](https://github.com/coprl/coprl/blob/master/lib/coprl/presenters/dsl/components/image.rb) for styling.
+## Proviers
+
+Currently, the following providers are supported:
+
+* Google
+* Facebook
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'open_id_presenter_plugin',  github: 'coprl/open_id_presenter_plugin', branch: :main, require: false
+gem 'open_id_presenter_plugin',  github: 'evvnt/open_id_presenter_plugin', branch: :main, require: false
 ```
 
 And then execute:
@@ -20,31 +25,66 @@ And then execute:
 
 Example POM:
 
-    Coprl::Presenters.define(:google_maps) do
-        plugin :google_maps
-        page_title 'Maps'
-        subheading 'Static Maps'
-        
-        address = '125 Park Street, Traverse City, MI'
-        google_map address: address, height: 300, width: 400  do
-            event :click do
-                loads "https://www.google.com/maps/place/#{address}"
-            end
-        end
+```ruby
+# login_form.pom
+Coprl::Presenters.define(:login_form) do
+  plugin :open_id
+  helpers do
+    def csrf_token
+      token = SecureRandom.hex(32)
+      context[:session][:o_csrf_token] = token # retrieve this later server-side
+      token
+    end
+  end
+
+  content do
+    google_login google_client_id: :my_google_client_id,
+                 scope: %w[openid email profile],
+                 redirect_uri: auth_callback_url(:google),
+                 o_csrf_token: csrf_token
+  end
+end
+
+# logins_controller.rb
+class LoginsController < ApplicationController
+  def auth_callback
+    if params[:state] != session[:o_csrf_token]
+      raise 'Token mismatch'
     end
 
+    # bring your own HTTP adapter, like HTTParty
+    response = HTTParty.post('https://oauth2.googleapis.com/token', body: {
+      code: code,
+      client_id: :my_google_client_id,
+      client_secret: :my_google_client_secret,
+      redirect_uri: 'https://example.com/',
+      grant_type: 'authorization_code'
+    })
 
-Results in the following google map:
-![Google Map](https://dl.dropbox.com/s/bmhhs50sj90nyph/Screen%20Shot%202021-06-03%20at%203.32.04%20PM.png?dl=0)
+    if response.ok?
+      token = response['id_token']
+      validator = GoogleIDToken::Validator.new
+
+      begin
+        user_data = validator.check(token, :my_google_client_id)
+        # do something with user_data to log them into your application.
+      rescue StandardError => e
+        # oh no! let the user know something went wrong.
+      end
+    end
+  end
+end
+```
+
+
+Results in the following two buttons:
+
+![A cropped screenshot of two buttons stacked vertically, one displaying "Sign in with Facebook" and the other "Sign in with Google"](./buttons.webp)
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/coprl/chart_presenter_plugin.
+Bug reports and pull requests are welcome on GitHub at https://github.com/evvnt/open_id_presenter_plugin.
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the COPRL project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/coprl/coprl/blob/master/CODE-OF-CONDUCT.md).

@@ -1,7 +1,7 @@
 <style>
   <%= raw File.read(File.expand_path('../../assets/css/facebook_login.css', __dir__)  ) %>
 </style>
-<a id="facebook-login-btn" class="v-button v-button--button mdc-button mdc-button--raised" href="#" onclick="fbAuth();return false;">
+<button class="v-button v-button--button mdc-button mdc-button--raised v-openid-button--facebook" onclick="fbAuth(); return false;">
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="v-image v-image--fit-contain v-component">
     <g id="surface1">
       <path style=" stroke:none;fill-rule:nonzero;fill:rgb(9.803922%,46.666667%,95.294118%);fill-opacity:1;" d="M 24.003906 12.003906 C 24.003906 18.628906 18.628906 24.003906 12 24.003906 C 5.375 24.003906 0 18.628906 0 12.003906 C 0 5.375 5.375 0 12 0 C 18.628906 0 24.003906 5.375 24.003906 12.003906 Z M 24.003906 12.003906 "/>
@@ -9,9 +9,9 @@
     </g>
   </svg>
   Sign in with Facebook
-</a>
+</button>
 <script>
   function fbAuth(){
-      window.location.href = "<%= comp.login_uri %>"
+    window.location.href = "<%= comp.login_uri %>"
   }
 </script>
