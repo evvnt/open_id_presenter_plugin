@@ -1,5 +1,5 @@
-require_relative 'open_id/components/google_login'
-require_relative 'open_id/components/facebook_login'
+require_relative "open_id/components/google_login"
+require_relative "open_id/components/facebook_login"
 
 module Coprl
   module Presenters
@@ -21,27 +21,20 @@ module Coprl
 
         module WebClientComponents
           def view_dir_open_id(_pom)
-            File.join(__dir__, '../../../..', 'views', 'components')
+            File.join(__dir__, "../../../..", "views", "components")
           end
 
-          def render_google_login(comp,
-                               render:,
-                               components:,
-                               index:)
+          def render_google_login(comp, render:, components:, index:)
             render.call :erb, :google_login, views: view_dir_open_id(comp),
-                        locals: {comp: comp,
-                                 components: components, index: index}
+              locals: {comp: comp,
+                       components: components, index: index}
           end
 
-          def render_facebook_login(comp,
-                                  render:,
-                                  components:,
-                                  index:)
+          def render_facebook_login(comp, render:, components:, index:)
             render.call :erb, :facebook_login, views: view_dir_open_id(comp),
-                        locals: {comp: comp,
-                                 components: components, index: index}
+              locals: {comp: comp,
+                       components: components, index: index}
           end
-
         end
       end
     end

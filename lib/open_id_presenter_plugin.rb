@@ -1,1 +1,1 @@
-require_relative 'coprl/presenters/plugins/open_id'
+require_relative "coprl/presenters/plugins/open_id"
