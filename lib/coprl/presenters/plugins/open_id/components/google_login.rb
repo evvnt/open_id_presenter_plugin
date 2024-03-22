@@ -1,11 +1,11 @@
-require_relative 'scope_string'
+require_relative "helpers"
 
 module Coprl
   module Presenters
     module Plugins
       module OpenId
         class GoogleLogin < DSL::Components::Base
-          include ScopeString
+          include Helpers
 
           attr_reader :google_client_id, :redirect_uri, :login_uri, :o_csrf_token, :scope
 
@@ -31,7 +31,7 @@ module Coprl
               nonce: SecureRandom.hex(12)
             }
 
-            "https://accounts.google.com/o/oauth2/v2/auth?#{params.to_query}"
+            "https://accounts.google.com/o/oauth2/v2/auth?#{hash_to_query_string(params)}"
           end
         end
       end
