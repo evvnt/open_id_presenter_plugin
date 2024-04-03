@@ -14,6 +14,7 @@ module Coprl
             end
           end
 
+          # TODO: remove this once COPRL has its own `html_safe` helper method.
           def html_safe(string)
             string.respond_to?(:html_safe) ? string.html_safe : string
           end
