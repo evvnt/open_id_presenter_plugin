@@ -12,6 +12,6 @@
 </button>
 <script>
   function fbAuth(){
-    window.location.href = "<%= comp.login_uri %>"
+    window.location.href = "<%= html_safe(comp.login_uri) %>"
   }
 </script>
