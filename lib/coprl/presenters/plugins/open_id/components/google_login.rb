@@ -28,7 +28,8 @@ module Coprl
               redirect_uri: redirect_uri,
               scope: scope,
               state: o_csrf_token,
-              nonce: SecureRandom.hex(12)
+              nonce: SecureRandom.hex(12),
+              prompt: "select_account"
             }
 
             "https://accounts.google.com/o/oauth2/v2/auth?#{hash_to_query_string(params)}"
